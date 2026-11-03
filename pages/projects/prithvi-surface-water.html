@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Fine-tuning Prithvi-EO-2.0 for Surface-Water Mapping | Vincent Ondeng</title>
+    <meta name="description" content="How many labelled images does a geospatial foundation model save you? I fine-tune Prithvi-EO-2.0 on Sen1Floods11 with 1% to 100% of the training labels and compare it with the same model trained from scratch and with a simple MNDWI threshold.">
+    <meta name="author" content="Vincent Ondeng">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Fine-tuning Prithvi-EO-2.0 for Surface-Water Mapping | Vincent Ondeng">
+    <meta property="og:site_name" content="Vincent Ondeng">
+    <meta property="og:description" content="How many labelled images does a geospatial foundation model save you? I fine-tune Prithvi-EO-2.0 on Sen1Floods11 with 1% to 100% of the training labels and compare it with the same model trained from scratch and with a simple MNDWI threshold.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/project-detail.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome651.all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="page-container">
+        <header-component></header-component>
+
+        <div class="container mt-4 project-detail">
+            <a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a>
+            <h5 class="mt-3"><b>__ Project _____________________</b></h5>
+            <p class="detail-eyebrow mb-1">Earth observation · In progress</p>
+            <h2 class="detail-title">Fine-tuning Prithvi-EO-2.0 for Surface-Water Mapping</h2>
+            <h6 class="small-lemos mt-1">Sen1Floods11 · Sentinel-2 · 11 flood events · Ghana · Nigeria · Somalia</h6>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Project overview</h4>
+                    <p>Foundation models for Earth observation are sold on one promise: pre-train once on lots of unlabelled imagery, and you need far fewer labels for each new task. This project measures that promise for one task. I fine-tune Prithvi-EO-2.0, a pretrained vision transformer for satellite imagery, to map surface water during floods, using anywhere from 1% to 100% of the labelled training images. I compare it with the identical model trained from random weights and with a one-parameter spectral rule, all under the same label budget. I also break the results down by event, to see what they can and cannot say about the three African floods in the dataset.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">Python</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">PyTorch</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">TerraTorch</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Prithvi-EO-2.0</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Vision Transformers</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Sentinel-2</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Kaggle GPUs</span></div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What is being mapped</h4><p>The model maps open surface water at the moment the image was taken. That is not the same as floodwater. The labels mark rivers, lakes and reservoirs that are always there as water too, and I do not subtract a permanent-water layer, so every result is about water extent observed during floods. It is also not flood modelling. A mapped extent is an observation, the kind of reference a flood model is calibrated and checked against.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Data</h4><p>Sen1Floods11 has 446 hand-labelled Sentinel-2 chips from eleven flood events. Each chip is 512 by 512 pixels at 10 m, about 26 km² of ground. The official split puts 252 chips in training, 89 in validation and 90 in test, drawn at random from ten events. All 15 Bolivia chips are held out as an unseen event. Africa is represented by Ghana, Nigeria and Somalia, 97 chips in total, about 22% of each split.</p><p>I use the six bands that match Prithvi's pre-training (blue, green, red, narrow NIR and the two SWIR bands). Pixels without a label, and pixels with no image data, are excluded from training and evaluation.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">How it works</h4>
+          <p>The only thing that differs between the two deep models is where the encoder's weights start. Everything else is held equal.</p>
+          <ul class="detail-list">
+            <li><b>Model.</b> The Prithvi-EO-2.0-100M-TL encoder, built through TerraTorch, either with its pretrained weights or randomly initialised. The decoder is the same in both and always starts from random weights.</li>
+            <li><b>Label budgets.</b> Nested subsets of 1%, 5%, 10%, 25%, 50% and 100% of the training chips (3 to 252 chips), each run with five seeds. Both models see exactly the same subset for a given seed.</li>
+            <li><b>Training.</b> 4,000 steps for every run, AdamW with separate learning rates for encoder and decoder, a short warm-up then cosine decay, and random 90° rotations and flips. Each run took about 21 minutes on one T4 GPU on Kaggle.</li>
+            <li><b>Baseline.</b> A threshold on MNDWI, a standard water index built from the green and SWIR bands. The threshold is fitted on the same labelled chips the deep models get.</li>
+            <li><b>Evaluation.</b> Water IoU, with confusion matrices stored per event so I can pool them for Africa, for the other events, and for everything.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Results so far</h4>
+          <div class="detail-stats">
+            <div class="detail-stat"><strong>0.844 vs 0.804</strong><span>mean test water IoU at 100% labels, pretrained against scratch</span></div>
+            <div class="detail-stat"><strong>0.770 vs 0.608</strong><span>the same comparison on Bolivia, the one held-out event</span></div>
+            <div class="detail-stat"><strong>0.761–0.787</strong><span>test IoU of the MNDWI rule, almost flat from 1% to 100% labels</span></div>
+          </div>
+          <p>The MNDWI rule has a single parameter, so a few chips are enough to fit it, and it is hard to beat when labels are very scarce. The deep models need labels to learn shape, texture and the other bands, which is how they separate water from shadow. Moving to Bolivia costs the pretrained model much less than the scratch one. That is what you would expect if pre-training reduces reliance on cues specific to one scene, but it rests on a single event of 15 chips.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">The model sees the ground at a different scale</h4><p>Prithvi was pre-trained on 30 m imagery. Here the input is 10 m, so each 16 by 16 pixel token covers 160 m instead of 480 m, and something that filled one token in pre-training now spans about nine. The position encodings count in tokens, not metres, so any spatial regularity the model learned is stretched by a factor of three. The imagery is also top-of-atmosphere reflectance, while pre-training used atmospherically corrected surface reflectance. The pretrained model's advantage is measured despite both mismatches. Matching the scale might make it larger, but I have not tested that.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What it can say about Africa</h4><p>Breaking the test score down by event is easy. Reading it honestly is harder.</p>
+          <ul class="detail-list">
+            <li><b>Test events are training events.</b> Every event in the test split also has chips in training, often from the same image and adjacent ground. The test score measures new chips from floods the model has already seen, not new floods.</li>
+            <li><b>Three events, not Africa.</b> A result for Africa is a result for these three floods on their particular dates. Nigeria has only 4 test chips.</li>
+            <li><b>Bigger floods dominate.</b> Pooled IoU weights each event by how much water it contains, so the Africa number is mostly the event with the most water. I report the per-event values beside it.</li>
+            <li><b>Small subsets often miss an event.</b> With 10% of the labels a model sees five or six African chips on average, and in roughly a third of seeds no Nigerian chip at all.</li>
+          </ul>
+          <p>To claim that the model transfers to new African floods, I would need to train without the three African events and test on them. That is about 20 more runs, and it is the next experiment.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">A mistake I caught</h4><p>My first attempt at the per-event rerun silently ran an older version of the training script on Kaggle. The numbers looked fine. The run cell now refuses to start unless the expected code is present, and it logs the commit hash. Each result file records its library versions, and I only compare runs from the same batch.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Limitations</h4>
+          <ul class="detail-list">
+            <li>The split is random within events, so test scores are interpolation scores. Only Bolivia tests an unseen event.</li>
+            <li>Labels include permanent water, which is easy to get right and makes scores higher than they would be for flood-only extent.</li>
+            <li>The labels are analysts' judgements made partly with radar. Where they relied on radar, for example under thin cloud, an optical model is penalised for information it does not have.</li>
+            <li>Mostly-cloudy chips were removed before labelling. In humid West Africa during the rainy season, persistent cloud is the norm, so these results describe the cloud-free fraction only.</li>
+            <li>Half the input bands, including both SWIR bands, are natively 20 m. Errors of a pixel or two along shorelines are unavoidable for any method.</li>
+            <li>Every run uses 4,000 steps, which means thousands of passes over the smallest subsets. The small-label results describe this schedule, not the best possible one.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Status</h4><p>I am writing this up and have a technical report on the methods. The per-event results for Ghana, Nigeria and Somalia are still being analysed. Next I want to run the leave-Africa-out experiment and test whether matching the input scale to pre-training helps.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Resources</h4><p><a href="https://github.com/vincentondeng" target="_blank" rel="noopener noreferrer">GitHub ↗</a> (code will be published in a public repository)</p>
+                </div>
+            </div>
+
+            <p class="mt-4"><a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a></p>
+        </div>
+
+        <div id="footer">
+            <footer-component></footer-component>
+            <footer-component-lemos></footer-component-lemos>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript"></script>
+    <script src="/components/footer-lemos.js" type="text/javascript"></script>
+    <script src="/assets/js/fontawesome651all.min.js" type="text/javascript" defer></script>
+
+</body>
+
+</html>

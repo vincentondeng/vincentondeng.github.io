@@ -6,7 +6,7 @@ Vincent Ondeng's academic portfolio. Plain HTML, CSS and Bootstrap 4, no build s
 
 - `index.html`: home
 - `pages/`: `education`, `experience`, `skills`, `projects`, `publications`
-- `pages/projects/<slug>.html`: one write-up per project (5 projects)
+- `pages/projects/<slug>.html`: one write-up per project (6 projects)
 - `components/`: shared header and footer (web components, loaded on every page)
 - `assets/css/project-detail.css`: styles for the project write-ups
 - `assets/img/`: `profile.jpg`, `favicon.svg` (`avatar.svg` is the unused old placeholder)

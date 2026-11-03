@@ -35,6 +35,18 @@
 
             <div class="mt-3 card">
                 <div class="card-body">
+                    <h4 class="card-title mb-0">Fine-tuning Prithvi-EO-2.0 for Surface-Water Mapping</h4>
+                    <h6 class="small-lemos mt-1">Earth observation · In progress · Sen1Floods11 · Sentinel-2</h6>
+                    <p class="card-text mt-2 mb-2 text-justify small">How many labels does a geospatial foundation model save you? I fine-tune Prithvi-EO-2.0 to map surface water during floods with 1% to 100% of the training labels, and compare it with the same model trained from scratch and with a simple water-index threshold. With all labels it reaches a test IoU of 0.844 against 0.804 from scratch, and the gap widens on an unseen flood.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">PyTorch</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">TerraTorch</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Prithvi-EO-2.0</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Sentinel-2</span></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-blue btn-sm py-0"><a href="/pages/projects/prithvi-surface-water.html">Read more <i class="ml-1 fa-solid fa-arrow-right"></i></a></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body">
                     <h4 class="card-title mb-0">Graph-based Neural Network for Informal Settlement Characterization</h4>
                     <h6 class="small-lemos mt-1">Urban analytics · Paper in preparation · Luanda · Dhaka · Munich</h6>
                     <p class="card-text mt-2 mb-2 text-justify small">Informal settlements leave a recognisable pattern on a map: small buildings, packed tightly, in irregular layouts. This project turns building footprints into graphs and trains graph neural networks to read that pattern. On 718,740 labelled footprints from Luanda and Dhaka, the graph models beat feature-only baselines in all 48 paired runs. Munich is held out to see how well the models travel.</p>
