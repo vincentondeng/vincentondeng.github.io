@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>An LLM-Assisted Application Workflow | Vincent Ondeng</title>
+    <meta name="description" content="Applying for PhD positions, fellowships and jobs means writing the same story many times: a CV, a letter and answers to portal questions, each cut to a different advert and page limit. A language model makes the drafting fast. It also makes…">
+    <meta name="author" content="Vincent Ondeng">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="An LLM-Assisted Application Workflow | Vincent Ondeng">
+    <meta property="og:site_name" content="Vincent Ondeng">
+    <meta property="og:description" content="Applying for PhD positions, fellowships and jobs means writing the same story many times: a CV, a letter and answers to portal questions, each cut to a different advert and page limit. A language model makes the drafting fast. It also makes…">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/project-detail.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome651.all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="page-container">
+        <header-component></header-component>
+
+        <div class="container mt-4 project-detail">
+            <a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a>
+            <h5 class="mt-3"><b>__ Project _____________________</b></h5>
+            <p class="detail-eyebrow mb-1">LLM Workflow · In use</p>
+            <h2 class="detail-title">An LLM-Assisted Application Workflow</h2>
+            <h6 class="small-lemos mt-1">Claude · custom skills · LaTeX · Python</h6>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Project overview</h4>
+                    <p>Applying for PhD positions, fellowships and jobs means writing the same story many times: a CV, a letter and answers to portal questions, each cut to a different advert and page limit. A language model makes the drafting fast. It also makes three mistakes that matter more in an application than almost anywhere else. It drifts from the facts, it quietly drops things to fit a page, and it writes in a voice that is not yours. I built a small system around Claude to keep the speed and catch those mistakes, and I have used it on five real applications.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">Claude</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Custom skills</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Python</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">LaTeX</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">YAML</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Shell</span></div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">The problem I was solving</h4>
+          <ul class="detail-list">
+            <li><b>Drift.</b> A model rounds a figure, merges two roles or describes a method I never used. Each slip is small, and each one is hard to spot when I am rereading my own work.</li>
+            <li><b>Quiet cuts.</b> To fit a page limit, it removes an award or a thesis title and does not mention it.</li>
+            <li><b>A generic voice.</b> The drafts read like a list of achievements instead of an argument made by a person.</li>
+          </ul>
+          <p>My answer was to treat application writing as a small piece of software. Facts live in one verified place. Claude drafts by following written procedures. A script builds every document and another script checks it before I see it. I stay in charge of everything that cannot be undone.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">How it fits together</h4>
+          <p>There are five layers. Information moves down from verified facts to finished documents, and two loops move back up: failed checks return to drafting, and facts I confirm return to the knowledge layer.</p>
+          <div style="overflow-x:auto; margin-top:18px;">
+            <svg width="100%" viewBox="0 0 680 456" style="max-width:680px; display:block;" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Layers of the application workflow</title>
+              <desc>Flowchart of five layers: a knowledge layer of verified facts, an agent layer where Claude follows five skills, a build and check layer, an output layer with one folder per application, and me as the final decision maker. A dashed arrow returns from the build layer to the agent layer when a check fails, and another returns from me to the knowledge layer with confirmed facts.</desc>
+              <defs>
+                <marker id="wf-arrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M2 1L8 5L2 9" fill="none" stroke="#415a77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <style>
+                  .wf-io    { fill: #F9F7F7; stroke: #669bbc; }
+                  .wf-proc  { fill: #ffffff; stroke: #0f4c75; }
+                  .wf-model { fill: #E4E9F1; stroke: #0f4c75; }
+                  .wf-t     { fill: #1B262C; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 14px; font-weight: 600; }
+                  .wf-s     { fill: #415a77; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 12px; }
+                  .wf-arr   { stroke: #415a77; stroke-width: 1.5; fill: none; }
+                  .wf-dash  { stroke-dasharray: 5 4; }
+                </style>
+              </defs>
+
+              <rect class="wf-io" x="180" y="20" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="42" text-anchor="middle" dominant-baseline="central">Knowledge layer</text>
+              <text class="wf-s" x="340" y="60" text-anchor="middle" dominant-baseline="central">Profile · facts.yaml · evidence · answers · writing samples</text>
+              <line class="wf-arr" x1="340" y1="76" x2="340" y2="106" marker-end="url(#wf-arrow-a)"/>
+              <rect class="wf-model" x="180" y="108" width="320" height="56" rx="6" stroke-width="1.5"/>
+              <text class="wf-t" x="340" y="130" text-anchor="middle" dominant-baseline="central">Agent layer</text>
+              <text class="wf-s" x="340" y="148" text-anchor="middle" dominant-baseline="central">Claude, following five written skills</text>
+              <line class="wf-arr" x1="340" y1="164" x2="340" y2="194" marker-end="url(#wf-arrow-a)"/>
+              <rect class="wf-proc" x="180" y="196" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="218" text-anchor="middle" dominant-baseline="central">Build and check layer</text>
+              <text class="wf-s" x="340" y="236" text-anchor="middle" dominant-baseline="central">Compile · page limit · fact checker · page images</text>
+              <line class="wf-arr" x1="340" y1="252" x2="340" y2="282" marker-end="url(#wf-arrow-a)"/>
+              <rect class="wf-proc" x="180" y="284" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="306" text-anchor="middle" dominant-baseline="central">Output layer</text>
+              <text class="wf-s" x="340" y="324" text-anchor="middle" dominant-baseline="central">One folder per application, with PDFs and a status log</text>
+              <line class="wf-arr" x1="340" y1="340" x2="340" y2="370" marker-end="url(#wf-arrow-a)"/>
+              <rect class="wf-io" x="180" y="372" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="394" text-anchor="middle" dominant-baseline="central">Me</text>
+              <text class="wf-s" x="340" y="412" text-anchor="middle" dominant-baseline="central">I review, confirm new facts, approve and submit</text>
+              <path class="wf-arr wf-dash" d="M500 224 H596 V136 H504" marker-end="url(#wf-arrow-a)"/>
+              <text class="wf-s" transform="translate(616 180) rotate(-90)" text-anchor="middle">a failed check goes back to drafting</text>
+              <path class="wf-arr wf-dash" d="M180 400 H88 V48 H176" marker-end="url(#wf-arrow-a)"/>
+              <text class="wf-s" transform="translate(70 224) rotate(-90)" text-anchor="middle">facts I confirm are added back</text>
+            </svg>
+          </div>
+          <ul class="detail-list">
+            <li><b>Knowledge.</b> A folder with my profile split by topic, a machine-readable <code>facts.yaml</code>, the source documents (thesis, transcripts, posters), approved answers to recurring questions, and samples of my own writing. Uncertain items are marked <code>[TO CONFIRM]</code>. It also records what I have not done, so a letter can name a gap instead of implying skill I do not have.</li>
+            <li><b>Agent.</b> Claude, working through five skills: one that orchestrates an application, and ones for CVs, cover letters, portal questions and quality review. A skill is a written procedure, and it holds no facts about me. Every fact is read from the profile.</li>
+            <li><b>Build and check.</b> Scripts that compile the LaTeX, enforce page limits, check the facts and render each page as an image to look at.</li>
+            <li><b>Output.</b> One folder per application, with its requirements, a status log, the sources and the PDFs.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Life of one application</h4>
+          <div style="overflow-x:auto; margin-top:18px;">
+            <svg width="100%" viewBox="0 0 680 618" style="max-width:680px; display:block;" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Life of one application</title>
+              <desc>Flowchart: I share an advert, Claude analyses the opportunity and I decide whether to apply, the folder is set up, documents are drafted, built and checked, packaged for my review, and I submit. Dashed arrows return from checks and from my review to drafting.</desc>
+              <defs>
+                <marker id="wf-arrow-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M2 1L8 5L2 9" fill="none" stroke="#415a77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <style>
+                  .wf-io    { fill: #F9F7F7; stroke: #669bbc; }
+                  .wf-proc  { fill: #ffffff; stroke: #0f4c75; }
+                  .wf-model { fill: #E4E9F1; stroke: #0f4c75; }
+                  .wf-t     { fill: #1B262C; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 14px; font-weight: 600; }
+                  .wf-s     { fill: #415a77; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 12px; }
+                  .wf-arr   { stroke: #415a77; stroke-width: 1.5; fill: none; }
+                  .wf-dash  { stroke-dasharray: 5 4; }
+                </style>
+              </defs>
+
+              <rect class="wf-io" x="180" y="20" width="320" height="44" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="42" text-anchor="middle" dominant-baseline="central">I share an advert</text>
+              <line class="wf-arr" x1="340" y1="64" x2="340" y2="92" marker-end="url(#wf-arrow-b)"/>
+              <rect class="wf-model" x="180" y="94" width="320" height="56" rx="6" stroke-width="1.5"/>
+              <text class="wf-t" x="340" y="116" text-anchor="middle" dominant-baseline="central">1. Opportunity analysis</text>
+              <text class="wf-s" x="340" y="134" text-anchor="middle" dominant-baseline="central">Requirements, fit, gaps · I decide whether to apply</text>
+              <line class="wf-arr" x1="340" y1="150" x2="340" y2="178" marker-end="url(#wf-arrow-b)"/>
+              <rect class="wf-proc" x="180" y="180" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="202" text-anchor="middle" dominant-baseline="central">2. Folder set-up</text>
+              <text class="wf-s" x="340" y="220" text-anchor="middle" dominant-baseline="central">requirements.md and status.md</text>
+              <line class="wf-arr" x1="340" y1="236" x2="340" y2="264" marker-end="url(#wf-arrow-b)"/>
+              <rect class="wf-model" x="180" y="266" width="320" height="56" rx="6" stroke-width="1.5"/>
+              <text class="wf-t" x="340" y="288" text-anchor="middle" dominant-baseline="central">3. Drafting</text>
+              <text class="wf-s" x="340" y="306" text-anchor="middle" dominant-baseline="central">CV, letter or statement, form answers</text>
+              <line class="wf-arr" x1="340" y1="322" x2="340" y2="350" marker-end="url(#wf-arrow-b)"/>
+              <rect class="wf-proc" x="180" y="352" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="374" text-anchor="middle" dominant-baseline="central">4. Build and check</text>
+              <text class="wf-s" x="340" y="392" text-anchor="middle" dominant-baseline="central">Compile · fact checker · look at every page</text>
+              <line class="wf-arr" x1="340" y1="408" x2="340" y2="436" marker-end="url(#wf-arrow-b)"/>
+              <rect class="wf-model" x="180" y="438" width="320" height="56" rx="6" stroke-width="1.5"/>
+              <text class="wf-t" x="340" y="460" text-anchor="middle" dominant-baseline="central">5. Package and my review</text>
+              <text class="wf-s" x="340" y="478" text-anchor="middle" dominant-baseline="central">Combined PDF and a note on what to confirm</text>
+              <line class="wf-arr" x1="340" y1="494" x2="340" y2="522" marker-end="url(#wf-arrow-b)"/>
+              <rect class="wf-io" x="180" y="524" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="wf-t" x="340" y="546" text-anchor="middle" dominant-baseline="central">6. I submit</text>
+              <text class="wf-s" x="340" y="564" text-anchor="middle" dominant-baseline="central">status.md is updated</text>
+              <path class="wf-arr wf-dash" d="M500 380 H596 V294 H504" marker-end="url(#wf-arrow-b)"/>
+              <text class="wf-s" transform="translate(616 337) rotate(-90)" text-anchor="middle">a failed check sends it back</text>
+              <path class="wf-arr wf-dash" d="M180 466 H88 V294 H176" marker-end="url(#wf-arrow-b)"/>
+              <text class="wf-s" transform="translate(70 380) rotate(-90)" text-anchor="middle">I ask for changes</text>
+              <text class="wf-s" x="180" y="604">The two decisions that cannot be undone, applying and submitting, are mine.</text>
+            </svg>
+          </div>
+          <p>The first stage is a recommendation, not a decision. For one job advert, the analysis showed that the role's core requirement, advanced Stata, was missing from my profile. I decided to pass, and no folder was created. That felt like the system working as intended.</p>
+          <p>Each folder keeps a <code>requirements.md</code> (parts, limits, deadline with its time zone) and a <code>status.md</code> (stage, open items, a dated log). If I come back after a week, I can see at a glance what is done and what is left.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Checking the facts</h4>
+          <p>The checker, <code>check_facts.py</code>, compares every document against <code>facts.yaml</code> and exits with an error if anything fails, so it can gate a build.</p>
+          <ul class="detail-list">
+            <li><b>Forbidden wording.</b> Patterns that must never appear, each with the reason. A superseded figure, a wrong tool name and a method my thesis did not use are all on this list.</li>
+            <li><b>Identity.</b> Any ORCID-shaped string, email address or phone number must equal the one on file.</li>
+            <li><b>Dates near titles.</b> A different date range next to a role is a failure. No date at all is only a warning, because titles also appear in prose.</li>
+            <li><b>CV completeness.</b> Things every CV must contain, such as both thesis titles and every award.</li>
+            <li><b>Style.</b> Phrases I want to avoid in letters, such as "passionate", are flagged for rewording.</li>
+          </ul>
+          <p>The forbidden list grows from real mistakes. When a draft contained a wrong figure or a misspelt organisation, I fixed it and then added the wording to the list so it could not return.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Looking at the pages</h4>
+          <p>A PDF can compile cleanly and still be wrong. A line runs past the margin, a stray character prints as text, or a page break strands a signature. So looking at the pages is a required step. The build script renders every page to an image, Claude opens each one, and the text is also extracted to confirm that ligatures and symbols survive copying and applicant-tracking systems. If an image cannot be viewed, Claude is told to say so rather than report a check that did not happen.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Getting the voice right</h4>
+          <p>My early drafts were correct and dull. They had bold sub-headings, bullet points inside letters, and paragraphs that strung facts together ("At X, I did Y. I also did Z."). I gave Claude paragraphs from letters I had written before, and wrote down what they share: open with a problem in the field, then show where my interest comes from; build the foundation as connected work in service of an idea; then look forward to what I would investigate. Gaps are stated in one or two plain sentences, and numbers appear only where they make a point, because the CV carries the full figures. The difference shows most in the first sentence. A list-style draft opened with "I am applying for the fully funded PhD position in your lab". The revised one opens with a statement about the problem and reaches the position once it has been set up.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What the checks caught</h4>
+          <p>These are problems that really reached a draft. Each one became a permanent rule.</p>
+          <ul class="detail-list">
+            <li><b>A superseded figure</b> from my thesis, caught by comparing with the thesis. It is now a forbidden pattern.</li>
+            <li><b>A claim that a model used rainfall and temperature</b> when the thesis used rainfall only.</li>
+            <li><b>Misspelt names</b> of tools and organisations, caught by review against sources.</li>
+            <li><b>Tailoring that removed thesis details and awards</b> from CVs. I noticed it myself, and the "kept in full" rule now lives in the CV skill.</li>
+            <li><b>A stray carriage return</b> that printed as garbage in a CV. Only the page image showed it, which is why visual review is mandatory.</li>
+            <li><b>A <code>--date</code> option that did nothing.</b> The compiler was silently reading the original file instead of the modified copy. I only saw it by looking at the rendered date. The fix was to put the temporary folder first on the search path.</li>
+            <li><b>A signature that pushed a statement onto a second page.</b> The page-limit exit code now stops the build.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Where I draw the line</h4>
+          <ul class="detail-list">
+            <li>I submit every application, send every email and sign in to every portal. The system never stores or enters a password.</li>
+            <li>New facts enter my profile only after I confirm them. If something disagrees, it is flagged, not silently corrected.</li>
+            <li>Gaps are stated honestly. A modelled estimate is never presented as an observed result, a poster is never presented as a publication, and a missing document is never replaced by a different one.</li>
+            <li>Supervisor emails are drafted only when I ask for them.</li>
+          </ul>
+          <p>These rules are written into the skills, so they hold when a session is resumed later or on another device.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What it cannot do yet</h4>
+          <ul class="detail-list">
+            <li>The fact checker matches patterns. It catches known wrong wording and missing items, but not a new error phrased in a new way. That still depends on the quality review and on me.</li>
+            <li>Visual review depends on the model inspecting page images. It is thorough for layout and is no substitute for me reading the final PDF.</li>
+            <li>The date rule produces warnings in prose, where dates are rarely near titles.</li>
+            <li>Builds on my Mac lack the icon package that the letter template wants, so letters there use text icons unless I rebuild them with my own TeX installation.</li>
+            <li>Deadlines live in the status files and in reminders I set myself, not in the system.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Status</h4><p>In use on five applications: three PhD positions and two jobs. It also supports interview preparation, with each story written once in situation, task, action and result form and checked against the same facts. Next I want unit tests for the checker, one command that runs every build, check and package step before submission, a question bank for interviews, and a public repository with the scripts, templates and skills, with my personal data removed.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Resources</h4><p><a href="https://github.com/vincentondeng" target="_blank" rel="noopener noreferrer">GitHub ↗</a> (scripts, templates and skills will be published without personal data)</p>
+                </div>
+            </div>
+
+            <p class="mt-4"><a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a></p>
+        </div>
+
+        <div id="footer">
+            <footer-component></footer-component>
+            <footer-component-lemos></footer-component-lemos>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript"></script>
+    <script src="/components/footer-lemos.js" type="text/javascript"></script>
+    <script src="/assets/js/fontawesome651all.min.js" type="text/javascript" defer></script>
+
+</body>
+
+</html>

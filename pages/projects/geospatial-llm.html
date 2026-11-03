@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>A Geospatial Language Model | Vincent Ondeng</title>
+    <meta name="description" content="Ask a code model to find the buildings within 500 m of a road and it will often hand you code that runs, looks confident and is wrong. If the layer is in degrees, a 500 m buffer is a 500 degree buffer. Nothing crashes and nothing warns you.…">
+    <meta name="author" content="Vincent Ondeng">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="A Geospatial Language Model | Vincent Ondeng">
+    <meta property="og:site_name" content="Vincent Ondeng">
+    <meta property="og:description" content="Ask a code model to find the buildings within 500 m of a road and it will often hand you code that runs, looks confident and is wrong. If the layer is in degrees, a 500 m buffer is a 500 degree buffer. Nothing crashes and nothing warns you.…">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/project-detail.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome651.all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="page-container">
+        <header-component></header-component>
+
+        <div class="container mt-4 project-detail">
+            <a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a>
+            <h5 class="mt-3"><b>__ Project _____________________</b></h5>
+            <p class="detail-eyebrow mb-1">Geospatial AI · In progress</p>
+            <h2 class="detail-title">A Geospatial Language Model</h2>
+            <h6 class="small-lemos mt-1">Qwen2.5-Coder 1.5B · runs on a laptop</h6>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Project overview</h4>
+                    <p>Ask a code model to find the buildings within 500 m of a road and it will often hand you code that runs, looks confident and is wrong. If the layer is in degrees, a 500 m buffer is a 500 degree buffer. Nothing crashes and nothing warns you. This project asks how far a small model, trained on my own laptop, can be taught to avoid that kind of mistake, and how to measure the result honestly.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">Python</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">LoRA</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">MLX</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Qwen2.5-Coder</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">GeoPandas</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">pyproj</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Shapely</span></div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Why a small model</h4>
+          <p>Three things made this a good fit. I can check the output, because code either runs or it does not, and I can compare the result with a known answer. The job is narrow, so a model with 1.5 billion parameters can get good at a few tasks without having to be a general assistant. And the data is cheap, because answers can be verified by running them, so I can generate training examples and throw away any that fail.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Three routes</h4>
+          <p>I planned three routes and I am working through them in order. First, fine-tune a small open model with LoRA, the fastest way to a result I can measure. Nine versions are trained so far. Second, add tools and checks around the model, so it does not have to remember what a program can look up. Three pieces are built. Third, train a small transformer from scratch, to see what pre-training really contributes. That one has not started.</p>
+          <p>So far the model covers four GeoPandas tasks: selecting features within a distance, counting points per polygon, measuring polygon area, and filtering by attribute.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">How it is trained and tested</h4>
+          <p>The whole project rests on one idea. Generate examples whose answers can be checked by running them, train on those, and test on map layers the model has never seen.</p>
+          <div style="overflow-x:auto; margin-top:18px;">
+            <svg width="100%" viewBox="0 0 680 520" style="max-width:680px; display:block;" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Training and testing pipeline</title>
+              <desc>Flowchart from a schema bank through task templates, an execution gate, train and test files split by schema, LoRA fine-tuning, and execution-based evaluation. A dashed arrow returns from evaluation to the start: read the failures and fix the data.</desc>
+              <defs>
+                <marker id="llm-arrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M2 1L8 5L2 9" fill="none" stroke="#415a77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <style>
+                  .llm-io    { fill: #F9F7F7; stroke: #669bbc; }
+                  .llm-proc  { fill: #ffffff; stroke: #0f4c75; }
+                  .llm-model { fill: #E4E9F1; stroke: #0f4c75; }
+                  .llm-t     { fill: #1B262C; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 14px; font-weight: 600; }
+                  .llm-s     { fill: #415a77; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 12px; }
+                  .llm-arr   { stroke: #415a77; stroke-width: 1.5; fill: none; }
+                  .llm-dash  { stroke-dasharray: 5 4; }
+                </style>
+              </defs>
+
+              <rect class="llm-io" x="180" y="20" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="42" text-anchor="middle" dominant-baseline="central">Schema bank</text>
+              <text class="llm-s" x="340" y="60" text-anchor="middle" dominant-baseline="central">Layers, columns and coordinate systems</text>
+
+              <line class="llm-arr" x1="340" y1="76" x2="340" y2="106" marker-end="url(#llm-arrow-a)"/>
+
+              <rect class="llm-proc" x="180" y="108" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="130" text-anchor="middle" dominant-baseline="central">Task templates</text>
+              <text class="llm-s" x="340" y="148" text-anchor="middle" dominant-baseline="central">Instruction + reference code</text>
+
+              <line class="llm-arr" x1="340" y1="164" x2="340" y2="194" marker-end="url(#llm-arrow-a)"/>
+
+              <rect class="llm-proc" x="180" y="196" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="218" text-anchor="middle" dominant-baseline="central">Execution gate</text>
+              <text class="llm-s" x="340" y="236" text-anchor="middle" dominant-baseline="central">Must run and return rows, or it is dropped</text>
+
+              <line class="llm-arr" x1="340" y1="252" x2="340" y2="282" marker-end="url(#llm-arrow-a)"/>
+
+              <rect class="llm-proc" x="180" y="284" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="306" text-anchor="middle" dominant-baseline="central">Train and test files</text>
+              <text class="llm-s" x="340" y="324" text-anchor="middle" dominant-baseline="central">Split by schema, never by row · disjoint name pools</text>
+
+              <line class="llm-arr" x1="340" y1="340" x2="340" y2="370" marker-end="url(#llm-arrow-a)"/>
+
+              <rect class="llm-model" x="180" y="372" width="320" height="56" rx="6" stroke-width="1.5"/>
+              <text class="llm-t" x="340" y="394" text-anchor="middle" dominant-baseline="central">LoRA fine-tuning</text>
+              <text class="llm-s" x="340" y="412" text-anchor="middle" dominant-baseline="central">MLX · rank 8 · 16 layers · 0.34% of weights trained</text>
+
+              <line class="llm-arr" x1="340" y1="428" x2="340" y2="458" marker-end="url(#llm-arrow-a)"/>
+
+              <rect class="llm-io" x="180" y="460" width="320" height="44" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="482" text-anchor="middle" dominant-baseline="central">Run each reply and compare the result</text>
+
+              <path class="llm-arr llm-dash" d="M500 482 H596 V48 H504" marker-end="url(#llm-arrow-a)"/>
+              <text class="llm-s" transform="translate(616 270) rotate(-90)" text-anchor="middle">read the failures, fix the data</text>
+            </svg>
+          </div>
+          <p>Each prompt carries its own schema, with layer names, columns and coordinate system, so the model has to read them instead of recalling them. Training and test layers come from separate name pools. Every schema exists in several coordinate systems, so "this layer is metric" cannot stand in for actually reading the CRS. Scoring forgives harmless differences, such as the right buildings returned in a different CRS.</p>
+          <p>One mistake of mine is worth telling. My first counting template passed every check while quietly dropping zones that had zero features. Execution proved the code ran, not that it was right. I only found it by reading the reference answers line by line.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Where I was wrong</h4>
+          <p>Most of what I learned came from explanations I believed and then had to give up.</p>
+          <ul class="detail-list">
+            <li><b>The baseline.</b> The untuned model scored 0 of 42, which I nearly recorded as a result about the model. It was my prompt. I never named the language, so it answered in SQL. With the prompt fixed it scored 15 of 42.</li>
+            <li><b>A confident wrong sentence.</b> After the first fine-tune, five of the seven misses came from one schema, where the model wrote that the layers were "already in a metric CRS (EPSG:4326)". That is false. In my data the coordinate system was tied to the schema, so the model copied the sentence without reading the code.</li>
+            <li><b>Three codes were not enough.</b> On codes it had never seen, the model failed on every geographic code except 4326. It had learned "reproject only for 4326", and my own template, which tested for 4326 directly, taught it that.</li>
+            <li><b>A score that could not fail.</b> For some distance prompts the correct answer was every feature in the layer, so a model that ignored the CRS still scored as correct. Of one version's 31 correct answers on unseen geographic codes, 29 were of this kind. I rebuilt the test.</li>
+            <li><b>The mystery of "cafes".</b> One version failed 18 times, every time on a single layer name. I blamed a lack of name variety, which was wrong. I still do not know the full cause.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">The fix: let a tool tell the model</h4>
+          <p>A 1.5 billion parameter model has no reliable way to know which of thousands of EPSG codes use degrees, and it does not need one. A program can look that up. So a small function asks pyproj for each layer's coordinate system type and unit, and writes the answer straight into the prompt:</p>
+          <pre class="detail-code">facilities(fid int, geometry Point EPSG:4269 [geographic, unit: degree])</pre>
+          <p>Now the model reads a fact instead of recalling one. The comparison that mattered used fresh geographic codes I had not looked at while tuning. Version 6, which writes its reasoning before the code, reprojected on 85 of 144 of those prompts. Version 7, with the annotation, reprojected on all of them.</p>
+          <p>I then showed it the wrong label on purpose. In all 192 prompts its decision followed the label and ignored the code number. That is what I wanted from a trusted tool. It also means the tool has to be right.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">The system around the model</h4>
+          <p>The scores only hold if the model receives prompts in the exact format it was trained on. A chat box wired straight to it would perform far worse. So the real system wraps the model in ordinary code that I can test.</p>
+          <div style="overflow-x:auto; margin-top:18px;">
+            <svg width="100%" viewBox="0 0 680 640" style="max-width:680px; display:block;" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Inference pipeline</title>
+              <desc>Flowchart from the user's layers through the CRS tool and prompt builder into the fine-tuned model. The model either writes code, which passes through a validator and repair step and a sandboxed executor to produce a result, or asks which CRS the layers are in, which returns to the start.</desc>
+              <defs>
+                <marker id="llm-arrow-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M2 1L8 5L2 9" fill="none" stroke="#415a77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+
+              <rect class="llm-io" x="180" y="20" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="42" text-anchor="middle" dominant-baseline="central">Your layers</text>
+              <text class="llm-s" x="340" y="60" text-anchor="middle" dominant-baseline="central">GeoPackage, GeoJSON, shapefile</text>
+
+              <line class="llm-arr" x1="340" y1="76" x2="340" y2="106" marker-end="url(#llm-arrow-b)"/>
+
+              <rect class="llm-proc" x="180" y="108" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="130" text-anchor="middle" dominant-baseline="central">CRS lookup tool</text>
+              <text class="llm-s" x="340" y="148" text-anchor="middle" dominant-baseline="central">pyproj · type and unit, or "unknown"</text>
+
+              <line class="llm-arr" x1="340" y1="164" x2="340" y2="194" marker-end="url(#llm-arrow-b)"/>
+
+              <rect class="llm-proc" x="180" y="196" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="218" text-anchor="middle" dominant-baseline="central">Prompt builder</text>
+              <text class="llm-s" x="340" y="236" text-anchor="middle" dominant-baseline="central">System message + schema + task, in the training format</text>
+
+              <line class="llm-arr" x1="340" y1="252" x2="340" y2="282" marker-end="url(#llm-arrow-b)"/>
+
+              <rect class="llm-model" x="180" y="284" width="320" height="56" rx="6" stroke-width="1.5"/>
+              <text class="llm-t" x="340" y="306" text-anchor="middle" dominant-baseline="central">Fine-tuned model</text>
+              <text class="llm-s" x="340" y="324" text-anchor="middle" dominant-baseline="central">Base model + adapter · the only part that is a model</text>
+
+              <line class="llm-arr" x1="340" y1="340" x2="340" y2="370" marker-end="url(#llm-arrow-b)"/>
+              <text class="llm-s" x="352" y="360">code</text>
+
+              <rect class="llm-proc" x="180" y="372" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="394" text-anchor="middle" dominant-baseline="central">Name checker and repair</text>
+              <text class="llm-s" x="340" y="412" text-anchor="middle" dominant-baseline="central">Reads the code without running it · fixes obvious typos</text>
+
+              <line class="llm-arr" x1="340" y1="428" x2="340" y2="458" marker-end="url(#llm-arrow-b)"/>
+
+              <rect class="llm-proc" x="180" y="460" width="320" height="56" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="482" text-anchor="middle" dominant-baseline="central">Sandboxed executor</text>
+              <text class="llm-s" x="340" y="500" text-anchor="middle" dominant-baseline="central">Timeout · memory limit · no network</text>
+
+              <line class="llm-arr" x1="340" y1="516" x2="340" y2="546" marker-end="url(#llm-arrow-b)"/>
+
+              <rect class="llm-io" x="180" y="548" width="320" height="44" rx="6" stroke-width="1"/>
+              <text class="llm-t" x="340" y="570" text-anchor="middle" dominant-baseline="central">Map, table, code and explanation</text>
+
+              <path class="llm-arr llm-dash" d="M180 312 H88 V48 H176" marker-end="url(#llm-arrow-b)"/>
+              <text class="llm-s" transform="translate(70 180) rotate(-90)" text-anchor="middle">or it asks "which CRS?" and the answer is annotated, then sent back</text>
+
+              <text class="llm-s" x="180" y="622">Every box except the shaded one is ordinary code.</text>
+            </svg>
+          </div>
+          <ul class="detail-list">
+            <li><b>CRS lookup tool.</b> Reads each layer's coordinate system and writes it into the prompt. If there is none, it says so instead of guessing.</li>
+            <li><b>Name checker.</b> Parses the model's code without running it and checks every name against the schema. It caught all 33 name and syntax errors in my saved predictions and flagged none of 2,557 correct answers.</li>
+            <li><b>Careful auto-repair.</b> Fixes an obvious typo in a layer name. If two fixes are equally likely, it does nothing, because a silent wrong guess is worse than a crash.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Teaching it to say "I don't know"</h4>
+          <p>Real layers often have no coordinate system at all, like a shapefile that lost its .prj file. Before version 8 the model simply invented one. It claimed EPSG:4326 and reprojected, in all 90 of 90 test cases. Now, when a distance or an area is needed, it asks which CRS to use. For counting and attribute filters it gets on with the work, because the answer does not depend on units.</p>
+          <p>Asking is only useful if the next turn works. My first version asked correctly and then ignored the answer, repeating the question every time (0 of 96 follow-ups). Only a two-turn test showed me that. Version 9 sets the CRS the user names and carries on, and gets 94 of 96 right.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Results so far</h4>
+          <div class="detail-stats">
+            <div class="detail-stat"><strong>970 / 970</strong><span>on the held-out templated test, with no needless questions asked</span></div>
+            <div class="detail-stat"><strong>94 / 96</strong><span>on two-turn follow-ups. Both misses are a drifted variable name</span></div>
+            <div class="detail-stat"><strong>33 / 33</strong><span>name and syntax errors caught by the checker</span></div>
+            <div class="detail-stat"><strong>0 / 2,557</strong><span>correct answers wrongly flagged</span></div>
+          </div>
+          <p>Please read these with care. Every test uses templated wording, and many prompts differ only in the coordinate system or one number, so they tend to pass or fail together. The scores show that the model learned this task for these prompts. How it will do with real people's wording, I do not know yet.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What it cannot do yet</h4>
+          <ul class="detail-list">
+            <li>Only four operations are covered. There is no dissolve, nearest neighbour, overlay or raster work.</li>
+            <li>It does not handle layers with a mix of known and unknown coordinate systems, free answers such as "I think it is UTM 37", or projected systems in feet.</li>
+            <li>It always reprojects to UTM zone 37S. That suits Nairobi and gets worse the further you go. The fix will follow the same idea as the CRS tool: let a program choose the metric CRS and show it in the prompt.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Status</h4><p>Work in progress. Next is a small local demo with a guided task picker, so I can see how the model copes with real wording and real data. Requests from the demo will seed a proper paraphrase test. After that I plan a harder test set, PostGIS SQL, STAC queries, a retry loop, and the from-scratch transformer.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Resources</h4><p><a href="https://github.com/vincentondeng" target="_blank" rel="noopener noreferrer">GitHub ↗</a> (code will be published with the technical write-up)</p>
+                </div>
+            </div>
+
+            <p class="mt-4"><a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a></p>
+        </div>
+
+        <div id="footer">
+            <footer-component></footer-component>
+            <footer-component-lemos></footer-component-lemos>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript"></script>
+    <script src="/components/footer-lemos.js" type="text/javascript"></script>
+    <script src="/assets/js/fontawesome651all.min.js" type="text/javascript" defer></script>
+
+</body>
+
+</html>

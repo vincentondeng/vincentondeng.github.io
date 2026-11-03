@@ -1,0 +1,19 @@
+/* Styles for project write-up pages */
+.back-link { font-weight: 600; }
+.detail-eyebrow { color: var(--blue-medium); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; }
+.detail-title { font-weight: 800; color: var(--darker-b); line-height: 1.25; }
+.detail-body p { margin-bottom: .9rem; line-height: 1.65; }
+.detail-body p:last-child { margin-bottom: 0; }
+.detail-body svg { background: var(--white-ish); border: 1px solid var(--blue-light); border-radius: 5px; padding: 8px; }
+.detail-list { margin: 12px 0 0; padding: 0; list-style: none; }
+.detail-list li { position: relative; margin: 0 0 11px; padding-left: 16px; line-height: 1.6; }
+.detail-list li::before { content: ""; position: absolute; left: 0; top: .72em; width: 5px; height: 5px; border-radius: 50%; background: var(--blue-light); }
+.detail-list b { color: var(--darker-b); font-weight: 600; }
+.detail-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+.detail-stat { padding: 14px 16px; border: 1px solid var(--blue-light); border-radius: 5px; background: var(--white-ish); }
+.detail-stat strong { display: block; color: var(--blue-dark); font-size: 1.5rem; line-height: 1.25; font-weight: 700; }
+.detail-stat span { display: block; margin-top: 2px; color: var(--gray-black); font-size: .84rem; line-height: 1.45; }
+.detail-code { margin: 14px 0 0; padding: 14px 16px; border: 1px solid var(--blue-light); border-radius: 5px; background: var(--white-ish); color: var(--darker-b); overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82rem; line-height: 1.55; }
+.detail-body code { color: var(--dark-b); background: var(--white-ish); padding: 1px 4px; border-radius: 3px; font-size: .88em; }
+.detail-body pre code { padding: 0; background: none; }
+@media (max-width: 575px) { .detail-stats { grid-template-columns: 1fr; } }

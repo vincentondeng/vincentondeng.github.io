@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Graph-based Neural Network for Informal Settlement Characterization | Vincent Ondeng</title>
+    <meta name="description" content="Look at a satellite image of almost any large city in the Global South and you can usually spot the informal settlements. The buildings are smaller, closer together and laid out with less regularity than the neighbourhoods around them. This…">
+    <meta name="author" content="Vincent Ondeng">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Graph-based Neural Network for Informal Settlement Characterization | Vincent Ondeng">
+    <meta property="og:site_name" content="Vincent Ondeng">
+    <meta property="og:description" content="Look at a satellite image of almost any large city in the Global South and you can usually spot the informal settlements. The buildings are smaller, closer together and laid out with less regularity than the neighbourhoods around them. This…">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/project-detail.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome651.all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="page-container">
+        <header-component></header-component>
+
+        <div class="container mt-4 project-detail">
+            <a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a>
+            <h5 class="mt-3"><b>__ Project _____________________</b></h5>
+            <p class="detail-eyebrow mb-1">Urban analytics · Paper submitted</p>
+            <h2 class="detail-title">Graph-based Neural Network for Informal Settlement Characterization</h2>
+            <h6 class="small-lemos mt-1">Luanda · Dhaka · Munich</h6>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Project overview</h4>
+                    <p>Look at a satellite image of almost any large city in the Global South and you can usually spot the informal settlements. The buildings are smaller, closer together and laid out with less regularity than the neighbourhoods around them. This project asks whether a model can learn that pattern from building footprints alone, without needing imagery at all. On 718,740 labelled footprints from Luanda and Dhaka, graph neural networks beat feature-only baselines in every one of 48 paired runs. They also taught me how easily a small study area, a single split or a badly designed label can mislead.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">Python</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">PyTorch</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">PyTorch Geometric</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">GeoPandas</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">DuckDB</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">scikit-learn</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Graph Convolutional Networks</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Graph Attention Networks</span></div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Why graphs?</h4><p>A single building says very little on its own. What makes a settlement informal is how buildings relate to each other: how close they sit, how they are oriented, and how dense the cluster is. A graph captures that naturally. Each building becomes a node, and neighbouring buildings are joined by edges, so the model learns from both the footprint and its surroundings. Most footprint-based classifiers describe each building by its own geometry and classify it in isolation, which misses exactly this.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Data</h4><p>Footprints come from the merged Google–Microsoft–OpenStreetMap Open Buildings dataset, queried with DuckDB straight from the remote files so no country-level download is needed. Luanda has 1,167,701 footprints and Dhaka 653,259, and both are used for training and testing. Munich has 186,586 and is held out as an out-of-domain probe: a city with a very different urban form and almost no informal settlement, used to see whether the models learned something general.</p><p>I ran the whole experiment twice, first on 1 km squares and then on 10 km squares holding 718,740 labelled footprints.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">How it works</h4>
+          <p>Every building gets seven shape descriptors. The graph models and the baselines receive exactly the same inputs, so any difference comes from the graph.</p>
+          <div style="overflow-x:auto; margin-top:18px;">
+            <svg width="100%" viewBox="0 0 680 520" style="max-width:680px; display:block;" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Informal settlement characterization pipeline</title>
+              <desc>Flowchart from building footprints through shape descriptors and weak labels, graph construction, a spatial block split, training of four models, and evaluation with a Munich out-of-domain probe.</desc>
+              <defs>
+                <marker id="gnn-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M2 1L8 5L2 9" fill="none" stroke="#415a77" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <style>
+                  .gnn-io   { fill: #F9F7F7; stroke: #669bbc; }
+                  .gnn-proc { fill: #ffffff; stroke: #0f4c75; }
+                  .gnn-t    { fill: #1B262C; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 14px; font-weight: 600; }
+                  .gnn-s    { fill: #415a77; font-family: "Ubuntu Sans", Arial, sans-serif; font-size: 12px; }
+                  .gnn-arr  { stroke: #415a77; stroke-width: 1.5; fill: none; }
+                </style>
+              </defs>
+
+              <rect class="gnn-io" x="160" y="20" width="360" height="56" rx="6" stroke-width="1"/>
+              <text class="gnn-t" x="340" y="42" text-anchor="middle" dominant-baseline="central">Building footprints</text>
+              <text class="gnn-s" x="340" y="60" text-anchor="middle" dominant-baseline="central">Luanda, Dhaka, Munich · Open Buildings via DuckDB</text>
+
+              <line class="gnn-arr" x1="340" y1="76" x2="340" y2="106" marker-end="url(#gnn-arrow)"/>
+
+              <rect class="gnn-proc" x="160" y="108" width="360" height="56" rx="6" stroke-width="1"/>
+              <text class="gnn-t" x="340" y="130" text-anchor="middle" dominant-baseline="central">Shape descriptors and weak labels</text>
+              <text class="gnn-s" x="340" y="148" text-anchor="middle" dominant-baseline="central">7 features per building · 4 neighbourhood indicators</text>
+
+              <line class="gnn-arr" x1="340" y1="164" x2="340" y2="194" marker-end="url(#gnn-arrow)"/>
+
+              <rect class="gnn-proc" x="160" y="196" width="360" height="56" rx="6" stroke-width="1"/>
+              <text class="gnn-t" x="340" y="218" text-anchor="middle" dominant-baseline="central">Build the graph</text>
+              <text class="gnn-s" x="340" y="236" text-anchor="middle" dominant-baseline="central">k-nearest neighbours · Delaunay · 50 m distance</text>
+
+              <line class="gnn-arr" x1="340" y1="252" x2="340" y2="282" marker-end="url(#gnn-arrow)"/>
+
+              <rect class="gnn-proc" x="160" y="284" width="360" height="56" rx="6" stroke-width="1"/>
+              <text class="gnn-t" x="340" y="306" text-anchor="middle" dominant-baseline="central">Split by spatial block</text>
+              <text class="gnn-s" x="340" y="324" text-anchor="middle" dominant-baseline="central">One edge of each city held out · never a random split</text>
+
+              <line class="gnn-arr" x1="340" y1="340" x2="340" y2="370" marker-end="url(#gnn-arrow)"/>
+
+              <rect class="gnn-proc" x="160" y="372" width="360" height="56" rx="6" stroke-width="1"/>
+              <text class="gnn-t" x="340" y="394" text-anchor="middle" dominant-baseline="central">Train four models</text>
+              <text class="gnn-s" x="340" y="412" text-anchor="middle" dominant-baseline="central">MLP and random forest (no graph) · GCN and GAT</text>
+
+              <line class="gnn-arr" x1="340" y1="428" x2="340" y2="458" marker-end="url(#gnn-arrow)"/>
+
+              <rect class="gnn-io" x="160" y="460" width="360" height="56" rx="6" stroke-width="1"/>
+              <text class="gnn-t" x="340" y="482" text-anchor="middle" dominant-baseline="central">Evaluate</text>
+              <text class="gnn-s" x="340" y="500" text-anchor="middle" dominant-baseline="central">Macro-F1 in each city · Munich as an out-of-domain probe</text>
+            </svg>
+          </div>
+          <p>I compare two architectures, Graph Convolutional Networks (GCN) and Graph Attention Networks (GAT). GCNs treat all neighbours equally, while GATs learn which neighbours matter most. I also treat the definition of "neighbour" as an experimental variable, because a graph of buildings is not observed. It has to be constructed, and a neighbourhood of the eight nearest buildings looks very different in a dense settlement than a fixed 50 m radius does.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">The labels</h4><p>No verified informal-settlement boundaries were available for either city, so I built weak labels from four neighbourhood indicators taken from the morphological-slum literature: local density, orientation irregularity, mean neighbour footprint area and spacing irregularity. A building is labelled informal when at least three of the four hold. Every threshold is a percentile within its own city and was fixed before any model was trained. I re-implemented the labelling independently and it reproduced all 1.8 million stored labels exactly.</p><p>These labels are a proxy, not ground truth, and every score in this project measures agreement with that proxy.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Results</h4>
+          <div class="detail-stats">
+            <div class="detail-stat"><strong>48 / 48</strong><span>paired runs at 10 km in which a graph model beat the better feature-only baseline</span></div>
+            <div class="detail-stat"><strong>0.65–0.70</strong><span>macro-F1 for the graph models at 10 km, against 0.54–0.57 for the baselines</span></div>
+            <div class="detail-stat"><strong>6.9–10.3 pts</strong><span>macro-F1 advantage on the original 1 km areas</span></div>
+            <div class="detail-stat"><strong>0.71–0.73</strong><span>macro-F1 once each city's features are scaled separately</span></div>
+          </div>
+          <p>The 10 km experiment used four different held-out edges of each city and two random seeds, which is eight runs per configuration. Graph structure adds real information beyond each building's own shape, under every graph I tested and for both architectures.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What did not hold up</h4>
+          <p>Scaling the study area up by a factor of 100 overturned most of what looked like findings on the small areas.</p>
+          <ul class="detail-list">
+            <li><b>The best graph.</b> At 1 km the distance graph was best for GCN. At 10 km it is narrowly the weakest, though within one standard deviation of the others.</li>
+            <li><b>GCN versus GAT.</b> They are indistinguishable. Paired on the same split, seed and graph, GAT scores 0.007 lower on average and is ahead in exactly 12 of 24 runs. GCN has fewer parameters, varies less between seeds and trains faster, so I prefer it.</li>
+            <li><b>Which edge you hold out.</b> The choice of test block moves scores by up to 0.13, more than any modelling choice. All my 1 km results used the hardest one.</li>
+            <li><b>Munich.</b> At 1 km almost nothing in Munich was predicted informal. At 10 km the rate is 2.1–13.1%, depending on the configuration.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What the labels really encode</h4><p>Because each threshold is a percentile within one city, the same morphology can be labelled formal in one city and informal in the other. The density threshold, for example, is 38 neighbours in Luanda and 27 in Dhaka. A model trained on Dhaka and tested on Luanda scores below chance (0.40–0.42). Scaling each city's features by its own statistics recovers the performance and makes the results far less sensitive to the split, but it also teaches the model a relative idea of informality that labels a third or more of Munich as informal. Which is right depends on the use. Prioritising areas within one city suits a relative label, while cross-city monitoring, such as for SDG indicator 11.1.1, needs an absolute one.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">What the Munich probe showed</h4><p>The Munich buildings predicted informal are not scattered. They form compact, sharply bounded clusters of very small structures, with a median area of 29 m² against 182 m² for everything else. They look like allotment gardens, which are dense rows of small huts on irregular plots. I have not checked that against land-use data, so it remains a hypothesis. If it holds, the model has learned "many small, closely and irregularly placed structures" and applied it faithfully to fabric that is not housing. That is a real limit of footprint-only methods, and it means a city without informal settlements is not a neutral test for a morphology-based model.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Training at scale</h4><p>A 10 km area holds up to 462,680 footprints, and the largest graph has 24.9 million edges, which does not fit in memory on my machine. I trained on 1 km tiles with a three-hop halo around each one. For both networks, the predictions for every building in a tile equal those of a full-graph pass, which I proved and then checked numerically (a maximum difference of exactly 0.0). It let me run the whole study on a cloud machine with two cores and no GPU.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Two mistakes I caught</h4><p>Two errors produced plausible scores while the setup underneath was broken. My first split offset Dhaka's coordinates and then held out the top 25% of the combined range, so the test set was almost entirely Dhaka. It was effectively a train-on-Luanda, test-on-Dhaka experiment, reported as an in-city result, and its macro-F1 of 0.808 was higher than any final result. My first label used compactness, which was also a model input, so a feature-only model could read part of the label directly. Once the split was fixed, the baselines beat the graph models.</p><p>Neither error was visible in the score. Both were obvious on a map, so I now plot the predictions before I trust a number.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Limitations</h4>
+          <ul class="detail-list">
+            <li>The labels are a morphology proxy, and they are built from neighbourhood aggregates that graph models can approximate and feature-only models cannot. Part of the measured gain is therefore a statement that GNNs can recover a neighbourhood-defined label, not independent evidence that they detect true informality better.</li>
+            <li>Only two labelled cities were studied, and the areas are single squares around each city's centre, not deliberately sampled.</li>
+            <li>The orientation feature is measured along an arbitrary side of the bounding rectangle for about 29% of buildings, which adds noise.</li>
+            <li>There is no independent reference data yet, such as community-mapped settlement boundaries.</li>
+          </ul>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Status</h4><p>The work is written up as a paper and submitted to the ISPRS International Journal of Geo-Information. Next I want to validate the labels against independent reference data, choose explicitly between city-relative and absolute labels, check Munich's clusters against land-use data, and extend the tiled training to whole cities and more labelled cities.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body detail-body">
+                    <h4 class="card-title">Resources</h4><p><a href="https://github.com/vincentondeng" target="_blank" rel="noopener noreferrer">GitHub ↗</a> (code will be published in a public repository)</p>
+                </div>
+            </div>
+
+            <p class="mt-4"><a class="back-link" href="/pages/projects.html"><i class="fa-solid fa-arrow-left mr-1"></i> Back to all projects</a></p>
+        </div>
+
+        <div id="footer">
+            <footer-component></footer-component>
+            <footer-component-lemos></footer-component-lemos>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript"></script>
+    <script src="/components/footer-lemos.js" type="text/javascript"></script>
+    <script src="/assets/js/fontawesome651all.min.js" type="text/javascript" defer></script>
+
+</body>
+
+</html>

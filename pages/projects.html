@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Projects | Vincent Ondeng</title>
+    <meta name="description" content="Selected geospatial data science and machine learning projects by Vincent Ondeng.">
+    <meta name="author" content="Vincent Ondeng">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Projects | Vincent Ondeng">
+    <meta property="og:site_name" content="Vincent Ondeng">
+    <meta property="og:description" content="Selected geospatial data science and machine learning projects by Vincent Ondeng.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome651.all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="page-container">
+        <header-component></header-component>
+
+        <div class="container mt-4">
+            <h5><b>__ Projects _____________________</b></h5>
+
+            <div class="mt-3 card">
+                <div class="card-body">
+                    <h4 class="card-title mb-0">Graph-based Neural Network for Informal Settlement Characterization</h4>
+                    <h6 class="small-lemos mt-1">Urban analytics · Paper submitted · Luanda · Dhaka · Munich</h6>
+                    <p class="card-text mt-2 mb-2 text-justify small">Informal settlements leave a recognisable pattern on a map: small buildings, packed tightly, in irregular layouts. This project turns building footprints into graphs and trains graph neural networks to read that pattern. On 718,740 labelled footprints from Luanda and Dhaka, the graph models beat feature-only baselines in all 48 paired runs. Munich is held out to see how well the models travel.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">PyTorch</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">GeoPandas</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">GCN</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">GAT</span></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-blue btn-sm py-0"><a href="/pages/projects/gnn-informal-settlements.html">Read more <i class="ml-1 fa-solid fa-arrow-right"></i></a></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body">
+                    <h4 class="card-title mb-0">Environmental Indices Analysis Platform</h4>
+                    <h6 class="small-lemos mt-1">Earth observation · In progress · Sentinel-2 · any area of interest</h6>
+                    <p class="card-text mt-2 mb-2 text-justify small">Give it a boundary and a date range, and get back vegetation and water trends for that place. Behind the scenes, an API finds Sentinel-2 scenes, masks clouds, and computes NDVI, EVI, SAVI and MNDWI lazily on Dask, returning a time series, a trend and a map you can download.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">FastAPI</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Dask</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">STAC</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Docker</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Streamlit</span></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-blue btn-sm py-0"><a href="/pages/projects/environmental-indices-platform.html">Read more <i class="ml-1 fa-solid fa-arrow-right"></i></a></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body">
+                    <h4 class="card-title mb-0">Mobility Analysis from Call Detail Records</h4>
+                    <h6 class="small-lemos mt-1">Urban analytics · Call detail records · 1.5M users</h6>
+                    <p class="card-text mt-2 mb-2 text-justify small">What can phone records tell us about how people move? This PySpark pipeline works through two weeks of call records for 1.5 million users and measures how far, and how widely, each person travels.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">PySpark</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Pandas UDF</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">CDR</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Python</span></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-blue btn-sm py-0"><a href="/pages/projects/mobility-analysis-cdr.html">Read more <i class="ml-1 fa-solid fa-arrow-right"></i></a></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body">
+                    <h4 class="card-title mb-0">A Geospatial Language Model</h4>
+                    <h6 class="small-lemos mt-1">Geospatial AI · In progress · Qwen2.5-Coder 1.5B · runs on a laptop</h6>
+                    <p class="card-text mt-2 mb-2 text-justify small">A small model, trained on a laptop, that turns plain-language GIS requests into GeoPandas code. A tool tells it each layer's coordinate system, it asks when that is unknown, and every answer is checked by running it.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">LoRA</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">MLX</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">GeoPandas</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">pyproj</span></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-blue btn-sm py-0"><a href="/pages/projects/geospatial-llm.html">Read more <i class="ml-1 fa-solid fa-arrow-right"></i></a></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 card">
+                <div class="card-body">
+                    <h4 class="card-title mb-0">An LLM-Assisted Application Workflow</h4>
+                    <h6 class="small-lemos mt-1">LLM Workflow · In use · Claude · custom skills · LaTeX</h6>
+                    <p class="card-text mt-2 mb-2 text-justify small">A system around Claude for job, PhD and scholarship applications. Facts live in one verified place, a script checks every document against them, and I make the decisions that cannot be undone.</p>
+                    <div><span class="badge p-1 my-1 mr-1 sw-tools text-center">Claude</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Skills</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">LaTeX</span><span class="badge p-1 my-1 mr-1 sw-tools text-center">Python</span></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-blue btn-sm py-0"><a href="/pages/projects/llm-application-workflow.html">Read more <i class="ml-1 fa-solid fa-arrow-right"></i></a></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="footer">
+            <footer-component></footer-component>
+            <footer-component-lemos></footer-component-lemos>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/components/header.js" type="text/javascript" defer></script>
+    <script src="/components/footer.js" type="text/javascript"></script>
+    <script src="/components/footer-lemos.js" type="text/javascript"></script>
+    <script src="/assets/js/fontawesome651all.min.js" type="text/javascript" defer></script>
+
+</body>
+
+</html>
