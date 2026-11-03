@@ -80,3 +80,17 @@ a {
 /* .pl-5{
 	padding-left: 100px !important;
 } */
+
+/* Contact list: one block centred under the photo, icons in a fixed column */
+.social-icons {
+  width: fit-content;
+  max-width: 100%;
+}
+.social-icons li {
+  display: flex;
+  align-items: baseline;
+}
+.social-icons li .svg-inline--fa,
+.social-icons li i {
+  flex: none;
+}

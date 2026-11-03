@@ -16,7 +16,7 @@ All paths are root-relative (`/assets/...`). Preview locally with `python3 -m ht
 
 ## Rules that must not break
 
-1. **The GNN paper is not published.** It was only submitted to the ISPRS International Journal of Geo-Information. Never write "published", "accepted", add a DOI, a PDF link or a BibTeX button for it. It stays under "Under Review" on `pages/publications.html`. Vincent has no publications yet.
+1. **The GNN paper is not published and not submitted.** It is a manuscript in preparation. Title: "Graph Neural Networks for Informal Settlement Characterization from Building Footprints: Adjacency Design, Scale and City-Relative Labels". Never write "submitted", "under review", "published" or "accepted", never name a journal, and never add a DOI, a PDF link or a BibTeX button for it. It stays under "Work in Progress" on `pages/publications.html`. Vincent has no publications and no submissions yet.
 2. **No invented facts.** Do not add dates, numbers, employers, co-authors or links Vincent has not given you. If something is missing, leave it out and list it in your final message.
 3. **Verified figures only.** CEMA return visits: "more than 835,000" (never 630,000). The thesis used CHIRPS rainfall only (never "rainfall and temperature").
 4. **The STAC Vegetation Index Pipeline project is removed.** Do not add it back.

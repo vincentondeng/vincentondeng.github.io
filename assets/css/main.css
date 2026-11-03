@@ -127,3 +127,25 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     flex-shrink: 0;
 }
+
+/* Course and certification lists (education page) */
+.course-list {
+  padding-left: 1.25rem;
+  columns: 2;
+  column-gap: 2rem;
+}
+.course-list li {
+  break-inside: avoid;
+  margin-bottom: 0.15rem;
+}
+@media (max-width: 767.98px) {
+  .course-list { columns: 1; }
+}
+
+/* Role details (experience page) */
+.experience-points {
+  padding-left: 1.25rem;
+}
+.experience-points li {
+  margin-bottom: 0.3rem;
+}
