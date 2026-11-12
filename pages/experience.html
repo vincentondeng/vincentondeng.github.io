@@ -36,18 +36,18 @@
         <div class="container mt-4">
             <h5><b>__ Professional Experience _____</b></h5>
 
-            <div class="mt-3 card">
+            <div class="mt-3 card" id="un-habitat">
                 <div class="card-body">
                     <h4 class="card-title mb-0 responsive-text">UN-Habitat</h4>
                     <h6 class="mb-0" style="font-size: large;">Data and Analytics Unit</h6>
                     <h3 class="designation-lemos mt-1" style="font-size:1.25rem; font-weight:700; color:var(--blue-medium);">Geospatial Data Scientist (Consultant)</h3>
                     <h6 class="small-lemos mt-1">(Oct 2025 &ndash; Sep 2026)</h6>
                     <p class="card-text mt-2 mb-0 text-justify">Built data pipelines for urban SDG indicators and housing stock estimates covering more than 150 cities. Most of the work was making messy, multi-country data behave consistently.</p>
-                    <ul class="experience-points mt-2 mb-0"><li>Improved and automated the workflow for SDG indicator 11.3.1 (land consumption relative to population growth), computed from satellite imagery and demographic data for more than 150 cities.</li><li>Classified Landsat and Sentinel imagery from 1990 to 2025 with Random Forest, SVM and K-means inside an automated urban-growth pipeline.</li><li>Combined Google Open Buildings, Microsoft building footprints, World Settlement Footprint and OpenStreetMap, picking the best-covered source for each city after checking it against imagery. Most cities then no longer needed image classification.</li><li>Corrected over-classified built-up area in 10 m and 30 m rasters city by city, for example using NDVI to remove vegetated pixels in green cities.</li><li>With the Namibia Statistics Agency, estimated building counts in Windhoek&rsquo;s informal settlements for 2015, 2020 and 2025. I corrected every 2025 footprint, then worked backwards so the earlier years matched one verified baseline.</li><li>Labelled housing typology classes from satellite and street-view imagery to train a CNN for housing stock estimation in African and Southeast Asian cities.</li><li>Ran quality assurance and validation on the workflows so the urban growth estimates were realistic and reproducible.</li></ul>
+                    <ul class="experience-points mt-2 mb-0"><li>Improved and automated the workflow for SDG indicator 11.3.1 (land consumption relative to population growth), computed from satellite imagery and demographic data for more than 150 cities.</li><li>Classified Landsat and Sentinel imagery from 1990 to 2025 with Random Forest, SVM and K-means inside an automated urban-growth pipeline.</li><li>Combined Google Open Buildings, Microsoft building footprints, World Settlement Footprint and OpenStreetMap, picking the best-covered source for each city after checking it against imagery. Most cities then no longer needed image classification.</li><li>Corrected over-classified built-up area in 10 m and 30 m rasters city by city, for example using NDVI to remove vegetated pixels in green cities.</li><li>With the Namibia Statistics Agency, estimated building counts in Windhoek&rsquo;s informal settlements for 2015, 2020 and 2025. I corrected every 2025 footprint, then worked backwards so the earlier years matched one verified baseline. I pulled the imagery for all three years in Google Earth Engine and ran the AlphaEarth classification there.</li><li>Labelled housing typology classes from satellite and street-view imagery to train a CNN for housing stock estimation in African and Southeast Asian cities.</li><li>Ran quality assurance and validation on the workflows so the urban growth estimates were realistic and reproducible.</li></ul>
                 </div>
             </div>
 
-            <div class="mt-3 card">
+            <div class="mt-3 card" id="cema">
                 <div class="card-body">
                     <h4 class="card-title mb-0 responsive-text">CEMA</h4>
                     <h6 class="mb-0" style="font-size: large;">University of Nairobi</h6>
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 card">
+            <div class="mt-3 card" id="aphrc">
                 <div class="card-body">
                     <h4 class="card-title mb-0 responsive-text">African Population and Health Research Center (APHRC)</h4>
                     <h6 class="mb-0" style="font-size: large;">IDEAMAPS project</h6>
